@@ -1,0 +1,52 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: email-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5433"
+    command: ["postgres", "-p", "5433"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - email-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-otp-container
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5433
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_ACCESS_EXPIRY: ${JWT_ACCESS_EXPIRY}
+      JWT_REFRESH_EXPIRY: ${JWT_REFRESH_EXPIRY}
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - email-network
+
+networks:
+  email-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

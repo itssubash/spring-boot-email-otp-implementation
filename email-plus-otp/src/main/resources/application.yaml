@@ -2,10 +2,10 @@ spring:
   application:
     name: email-plus-otp
   datasource:
-    url: jdbc:postgresql://localhost:5432/email_db
+    url: jdbc:postgresql://email-postgres:5433/email_db
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: ${DB_PASSWORD}
+    username: subash
+    password: ${DB_PASSWORD:subash}
 
   jpa:
     show-sql: true
@@ -16,8 +16,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    username: ${MAIL_USERNAME:tiwarisubash730@gmail.com}
+    password: ${MAIL_PASSWORD:pgrcwazmdvrmsogd}
     properties:
       mail:
         smtp:
@@ -28,11 +28,10 @@ spring:
 
 #jwt
 app:
-  jwt-secret: ${JWT_SECRET}
+  jwt-secret: 7f4c9e2a1d8b6f3c5e7a9b2d4f6c8e1a3b5d7f9c2e4a6b8d1f3e5c7a9b2d4f6
   jwt-issuer: www.subashtiwari07.com.np
   jwt-access-expiry: 600000
   jwt-refresh-expiry: 864000000
-
 
 
 
