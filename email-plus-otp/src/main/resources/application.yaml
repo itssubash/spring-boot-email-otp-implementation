@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: email-plus-otp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/email_db
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: ${DB_PASSWORD}
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+#jwt
+app:
+  jwt-secret: ${JWT_SECRET}
+  jwt-issuer: www.subashtiwari07.com.np
+  jwt-access-expiry: 600000
+  jwt-refresh-expiry: 864000000
+
+
+
+
+
